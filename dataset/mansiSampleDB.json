@@ -1,0 +1,26 @@
+{
+	"name": "mansiSampleDB",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "mansiSampleDB",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"tablename": {
+				"type": "string",
+				"defaultValue": "@item().table_name"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "SalesLT",
+			"table": {
+				"value": "@dataset().tablename",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
