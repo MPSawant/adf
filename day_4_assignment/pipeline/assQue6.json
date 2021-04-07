@@ -1,0 +1,53 @@
+{
+	"name": "assQue6",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "Select c.firstname +' bought '+ p.name +' from '+ c.salesperson +' worth Rs '+ str(sod.LineTotal) as SalesDetail\nfrom \n[SalesLT].[Customer] c, [SalesLT].[Product] p, [SalesLT].[SalesOrderDetail] sod, [SalesLT].[SalesOrderHeader] soh \nwhere soh.CustomerId=c.CustomerID and soh.SalesOrderID= sod.SalesOrderID\nand sod.ProductID= p.ProductID",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "assQue6",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Json1",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2021-04-07T05:48:12Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
